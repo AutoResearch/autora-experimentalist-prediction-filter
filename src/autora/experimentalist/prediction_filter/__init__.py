@@ -33,7 +33,9 @@ def filter(
         >>> model.predict(4)
         9
 
-        >>> filter_fct = lambda x: 5 < x < 10
+        For the filter function, be aware of the output type of the predict function. Here,
+        we expect a list with a single entry
+        >>> filter_fct = lambda x: 5 < x[0] < 10
         >>> pool = pd.DataFrame({'x': [1, 2, 3, 4, 5, 6]})
         >>> filter(pool, model, filter_fct)
            x
@@ -46,8 +48,6 @@ def filter(
 
     def __filter(x):
         y = model.predict(np.array(x))
-        if hasattr(y, "shape") and y.shape == np.array([1]):
-            y = y[0]
         _bool = filter_function(y)
         return _bool
 
