@@ -1,6 +1,6 @@
 [project]
 # UPDATE THIS BEFORE PUBLISHING
-name = "prediction_filter"
+name = "autora-experimentalist-prediction-filter"
 description = "Filters condition based on model predictions."
 authors = [{ name = "Younes Strittmatter", email = "younes_strittmatter@brown.edu" }]
 dynamic = ["version"]
