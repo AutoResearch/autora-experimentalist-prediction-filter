@@ -9,9 +9,9 @@ from sklearn.base import BaseEstimator
 
 
 def filter(
-        conditions:  Union[pd.DataFrame, np.ndarray],
-        model: BaseEstimator,
-        filter_function: Callable,
+    conditions: Union[pd.DataFrame, np.ndarray],
+    model: BaseEstimator,
+    filter_function: Callable,
 ) -> pd.DataFrame:
     """
     Filter conditions based on the expected outcome io the mdeol
