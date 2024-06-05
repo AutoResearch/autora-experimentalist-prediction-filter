@@ -1,7 +1,7 @@
 """
 Example Experimentalist
 """
-from typing import Callable
+from typing import Callable, Union
 
 import numpy as np
 import pandas as pd
@@ -9,10 +9,9 @@ from sklearn.base import BaseEstimator
 
 
 def filter(
-        conditions: pd.DataFrame,
+        conditions:  Union[pd.DataFrame, np.ndarray],
         model: BaseEstimator,
         filter_function: Callable,
-        reset_index: bool = True,
 ) -> pd.DataFrame:
     """
     Filter conditions based on the expected outcome io the mdeol
@@ -61,7 +60,7 @@ def filter(
 
     _pred = model.predict(c_array)
     _filter = np.apply_along_axis(filter_function, 1, _pred)
-    _filter = _filter.reshape(1,-1)
+    _filter = _filter.reshape(1, -1)
 
     new_conditions = c_array[list(_filter[0])]
 

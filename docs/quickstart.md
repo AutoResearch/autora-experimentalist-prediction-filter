@@ -7,7 +7,7 @@ You will need:
 *prediction-filter is a part of the `autora` package:
 
 ```shell
-pip install -U autora-experimentalist-prediction-filter
+pip install -U autora-["experimentalist-prediction-filter"]
 ```
 
 
