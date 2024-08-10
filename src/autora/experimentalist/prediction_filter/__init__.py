@@ -9,9 +9,9 @@ from sklearn.base import BaseEstimator
 
 
 def filter(
-    conditions: Union[pd.DataFrame, np.ndarray],
-    model: BaseEstimator,
-    filter_function: Callable,
+        conditions: Union[pd.DataFrame, np.ndarray],
+        model: BaseEstimator,
+        filter_function: Callable,
 ) -> pd.DataFrame:
     """
     Filter conditions based on the expected outcome io the mdeol
@@ -27,7 +27,8 @@ def filter(
     Examples:
         >>> class ModelLinear:
         ...     def predict(self, X):
-        ...         return 2 * X + 1
+        ...         c_array = np.array(X)
+        ...         return 2 * c_array + 1
         >>> model = ModelLinear()
         >>> model.predict(4)
         9
@@ -51,21 +52,31 @@ def filter(
                [5, 5]])
 
         >>> filter(pool, model, filter_fct_2d)
-        array([[1, 1]])
+           0  1
+        0  1  1
 
+        >>> pool = pd.DataFrame({'x': [1, 0, 0, 1, 2], 'y': [0, 1, 1, 1, 2]})
+        >>> model.predict(pool)
+        array([[3, 1],
+               [1, 3],
+               [1, 3],
+               [3, 3],
+               [5, 5]])
+
+        >>> filter(pool, model, filter_fct_2d)
+           x  y
+        0  1  1
     """
-    c_array = np.array(conditions)
-    if len(c_array.shape) == 1:
-        c_array = c_array.reshape(-1, 1)
-
-    _pred = model.predict(c_array)
+    _pred = model.predict(conditions)
     _filter = np.apply_along_axis(filter_function, 1, _pred)
     _filter = _filter.reshape(1, -1)
 
-    new_conditions = c_array[list(_filter[0])]
+    new_conditions = conditions[list(_filter[0])]
 
     if isinstance(conditions, pd.DataFrame):
-        new_conditions = pd.DataFrame(new_conditions, columns=conditions.columns)
+        new_conditions = pd.DataFrame(new_conditions, columns=conditions.columns).reset_index(drop=True)
+    else:
+        new_conditions = pd.DataFrame(new_conditions)
 
     return new_conditions
 

@@ -9,6 +9,7 @@ nav:
 - Quickstart: 'quickstart.md'
 - Examples:
   - Basic Usage: 'Basic Usage.ipynb'
+  - Usage On State: 'Usage On State.ipynb'
 
 
 
