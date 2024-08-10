@@ -9,9 +9,9 @@ from sklearn.base import BaseEstimator
 
 
 def filter(
-        conditions: Union[pd.DataFrame, np.ndarray],
-        model: BaseEstimator,
-        filter_function: Callable,
+    conditions: Union[pd.DataFrame, np.ndarray],
+    model: BaseEstimator,
+    filter_function: Callable,
 ) -> pd.DataFrame:
     """
     Filter conditions based on the expected outcome io the mdeol
@@ -74,7 +74,9 @@ def filter(
     new_conditions = conditions[list(_filter[0])]
 
     if isinstance(conditions, pd.DataFrame):
-        new_conditions = pd.DataFrame(new_conditions, columns=conditions.columns).reset_index(drop=True)
+        new_conditions = pd.DataFrame(
+            new_conditions, columns=conditions.columns
+        ).reset_index(drop=True)
     else:
         new_conditions = pd.DataFrame(new_conditions)
 
